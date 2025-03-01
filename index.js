@@ -1,10 +1,13 @@
 newFileBtn = document.querySelector(".new-file-btn")
 backBtn = document.querySelector(".back-btn")
+nextFileBtn = document.querySelector(".forward-btn")
 fileContainer = document.querySelector(".file-container")
 
 let root = {id: "root", content: []}
 let currentFile = root
+let forwardFile = null
 let fileStack = []
+let forwardStack = []
 let count = 0
 
 
@@ -14,6 +17,10 @@ newFileBtn.addEventListener("click", (event) => {
 
 backBtn.addEventListener(("click"), (event) => {
     backOutOfFile()
+})
+
+nextFileBtn.addEventListener(("click"), (event) => {
+    goForwardFile()
 })
 
 fileContainer.addEventListener("click", (event) => {
@@ -29,46 +36,51 @@ function addFile(){
         content: [],
     }
     currentFile.content.push(newFile)
-    console.log(currentFile.content)
     renderFiles()
 }
 
 function gotIntoFile(newFile){
-    fileStack.push(currentFile)
-    currentFile = newFile
-    renderFiles()
+    forwardStack = []
+    fileContainer.classList.add("swipe-left")
+    setTimeout(() => {
+        fileStack.push(currentFile)
+        currentFile = newFile
+        renderFiles()
+        fileContainer.classList.remove("swipe-left")
+    }, 300)
 }
 
 function backOutOfFile() {
     if(fileStack.length > 0){
+        forwardFile = currentFile
+        forwardStack.push(currentFile)
         currentFile = fileStack.pop()
+        // console.log("Regular Stack: ", fileStack)
+        // console.log("Forward Stack: ", forwardStack)
         renderFiles()
     }
+}
+
+function goForwardFile() {
+    if(forwardStack.length > 0){
+        fileStack.push(currentFile)
+        currentFile = forwardStack.pop()
+        forwardFile = forwardStack.length ? forwardStack[forwardStack.length-1] : null
+        renderFiles()
+        // console.log("Regular Stack: ", fileStack)
+        // console.log("Forward Stack: ", forwardStack)
+    }
+    
 }
 
 function renderFiles(){
     fileContainer.innerHTML = ""
     currentFile.content.forEach((file) => {
-        return fileContainer.innerHTML += `<p id="${file.id}">${file.img} File ${file.id}</p>`
+        return fileContainer.innerHTML += 
+        `<div class="file-holder">
+            <img class="folder-icon" src="images/folder-basic.png" alt="folder icon"/>
+            <p class="folder" id="${file.id}"> File ${file.id}</p>
+        </div>
+        `
     })
 }
-
-// addFile
-    // create new file
-    // add it to the currentFile.content
-    // renderFiles
-
-// render files
-    // loop over the currentFile.content
-
-// gotIntoFile
-    // stack.push(currentFile)
-    // event delegation to identify the chosen file
-    // currentFile = chosenFile
-    // renderFiles
-    
-
-// backOutOfFile
-    // if(fileStack.length > 0) "only if we have a parent to go back to"
-        // fileStack.pop()
-        // currentFile = fileStack.pop()

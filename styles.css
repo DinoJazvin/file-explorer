@@ -1,23 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 body {
-    background-color: rgb(23, 18, 127);
+    background-color: rgb(151, 151, 165);
     color: white;
-    font-family: "Plus Jakarta Sans", serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 200 !important;
+    font-size: 1.1rem;
     padding: 30px;
+    /* background: linear-gradient(-45deg, #5264ee, #2506a0, #380add, #23d5ab); */
+        background: linear-gradient(-45deg, #010209, #030720, #131630, #21243d);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+}
+
+.buttons-container {
+    /* border: 1px solid red; */
+    width: fit-content;
+    /* padding-left: 10px; */
+    margin-top: -5px;
+}
+
+.buttons-container img {
+    vertical-align: middle;
+}
+
+.content-container {
+    background-color: rgb(33, 33, 46);
+    width: 90%;
+    height: 80%;
+    padding: 20px 40px;
+    font-weight: 200;
+    border-radius: 20px;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.3); /* Left & Bottom */
+    background: rgba( 255, 255, 255, 0.25 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .new-file-btn {
-    color: rgb(23, 18, 127);
-    border: none;
-    background-color: white;
-    border-radius: 10px;
+    /* margin-left: 7px; */
+    padding: 6px 10px;
+    border-radius: 5px;
 }
 
-.back-btn {
-    color: rgb(23, 18, 127);
-    border: none;
-    background-color: white;
-    border-radius: 10px;
-    margin-right: 10px;
+
+.back-btn, .forward-btn {
+    /* background-color: rgba(33, 33, 59, 0.645); */
+    border-radius: 5px;
+    padding: 10px;
+    transition: background-color .1s ease-in-out;  /* Smooth hover effect */
+}
+
+.back-btn:hover, .forward-btn:hover, .new-file-btn:hover {
+    background-color: rgba(33, 33, 59, 0.327);
+}
+
+.folder {
+    cursor: pointer;
+    margin: 1px; /* Removes default <p> margins */
+    margin-top: 5px;
+}
+
+.file-icon {
+    width: 24px;  /* Adjust size */
+    height: 24px;
+    margin-right: 5px;
+    transition: filter 0.1s ease-in-out;  /* Smooth hover effect */
+}
+
+.file-icon:hover {
+    filter: brightness(0.5);  /* Darken slightly on hover */
+    
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+h1 {
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.file-holder {
+    display: flex;
+    transition: filter 0.05s ease-in-out;
+    width: fit-content;
+    margin-left: 10px;
+    /* margin-top: 10px; */
+}
+
+.file-holder:hover {
+    filter: brightness(0.85);
+    cursor: pointer;
+}
+
+
+.folder-icon {
+    height: 30px;
+    width: 30px;
+    /* margin-top: 13.5px; */
+    margin-right: 5px;
+}
+
+.file-container {
+    position: relative;
+    overflow: hidden;  /* Prevents scrollbars during animation */
+    width: 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+.swipe-left {
+    transform: translateX(-100%);
+}
+
+.swipe-right {
+    transition: translateX(100%)
 }
